@@ -5,6 +5,8 @@
  */
 package practica1ep2;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +36,8 @@ public class Practica1EP2 {
         do{
             do{
                 System.out.println("\n1. Alta Usuario" +"\n2. Alta objeto"+"\n3. Alquiler Objeto"+"\n4. Todos los Objetos"
-                                    +"\n5. Baja Objetos"+"\n6. Mostrar Saldos"+"\n7. Salir");
+                                    +"\n5. Baja Objetos"+"\n6. Mostrar Saldos"+"\n7. Modificar Importe"+ "\n8. Generar Fichero de alquiler"
+                                    +"\n9. Eliminar Usuario"+"\n10. Listado Usuarios mas asiduos"+"\n11. Salir");
                 System.out.print("Elige la opcion que desee: ");
 
                 Scanner sc = new Scanner(System.in);
@@ -64,11 +67,25 @@ public class Practica1EP2 {
                 case 6:
                     ep2.mostrarSaldos();
                     break;
+                case 7:
+                    //Primera Mejora
+                    ep2.modificarImporte();
+                    break;
+                case 8:
+                    //Segunda Mejora
+                    ep2.generarFichero();
+                    break;
+                case 9:
+                    //Tercera mejora
+                    break;
+                case 10:
+                    //Cuarta mejora
+                    break;
                 default:
-                    System.out.println("Por favor introduce un numero entre el 1 y el 7. Gracias!!!");
+                    System.out.println("Por favor introduce un numero entre el 1 y el 11. Gracias!!!");
                     break;
             }
-        }while(numInt != 7);
+        }while(numInt != 11);
         
     }
     public void altaUsuario(int idUsuario){
@@ -237,7 +254,6 @@ public class Practica1EP2 {
      }
     
     public void listarTodosObjetos(){
-        
         for(int i = 0; i < listaUsuario.size(); i++)
             System.out.println(listaUsuario.get(i));
     }
@@ -360,6 +376,33 @@ public class Practica1EP2 {
         }
     }
     
+    public void generarFichero(){
+        FileWriter fichero = null;
+        PrintWriter mostrar = null;
+        
+        try{
+            //genera el fichero txt
+            fichero = new FileWriter("src/saldos.txt");
+            //Te muestra o pinta en el fichero txt
+            mostrar = new PrintWriter(fichero);
+            
+            //va leyendo la lista de Usuarios y te las va pintando con mostrar en el txt
+            for(int i = 0; i < listaUsuario.size(); i++)
+                mostrar.print(listaUsuario.get(i));
+        //Si falla salta la excepcion ya que el archivo no se ha podido escribir    
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //Nos aseguramos con el finally para cuando acabe el proceso anterior
+                //de que cierre correctamente el fichero
+                if(null!=fichero)
+                    fichero.close();
+            }catch(Exception e2){
+                e2.printStackTrace();
+            }
+        }
+    }
 
     public static String escribirDatos(){
         String datos;
