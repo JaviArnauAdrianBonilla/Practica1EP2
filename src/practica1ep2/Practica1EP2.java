@@ -84,6 +84,9 @@ public class Practica1EP2 {
                     //Cuarta mejora
                     ep2.listarMasAsiduos();//Falta finalizar la implementacion de esta funcion
                     break;
+                case 11:
+                    System.out.println("\n\n\t\t¡¡¡GRACIAS PUR UTILIZAR EL PROGRAMA!!!\n\n");
+                    break;
                 default:
                     System.out.println("Por favor introduce un numero entre el 1 y el 11. Gracias!!!");
                     break;
@@ -400,6 +403,7 @@ public class Practica1EP2 {
             //va leyendo la lista de Usuarios y te las va pintando con mostrar en el txt
             for(int i = 0; i < listaUsuario.size(); i++)
                 mostrar.print(listaUsuario.get(i));
+            System.out.println("\nFichero Creado con EXITO!!!\n");
         //Si falla salta la excepcion ya que el archivo no se ha podido escribir    
         }catch(Exception e){
             e.printStackTrace();
