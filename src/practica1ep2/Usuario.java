@@ -20,14 +20,20 @@ public class Usuario {
     private String nombre;
     private int codigoUsuario;
     private String correo;
+    private String direccionPostal;
+    private String poblacion;
+    private String provincia;
     private ArrayList<Objeto> listaObjetos;
 
     
-    public Usuario(int codigoUsuario, String nombre, String correo)
+    public Usuario(int codigoUsuario, String nombre, String correo, String direccionPostal, String poblacion, String provincia)
     {
         this.codigoUsuario = codigoUsuario;
         this.nombre = nombre;
         this.correo = correo;
+        this.direccionPostal = direccionPostal;
+        this.poblacion = poblacion;
+        this.provincia = provincia;
         listaObjetos = new ArrayList<Objeto>();
     }
     
@@ -53,6 +59,14 @@ public class Usuario {
             listaObjetos.get(i).mostrarSaldosAlquilado();
         }
     }
+    
+    public int saldoAqluiler(){
+        for(int i = 0; i < listaObjetos.size(); i++)
+            return listaObjetos.get(i).saldosAlquiler();
+        
+        return -1;
+    }
+    
     public int buscarposObjetos(int idObjeto){
         int ini = 0, fin = listaObjetos.size()-1, pos;
         
@@ -89,7 +103,6 @@ public class Usuario {
             if(i == listaObjetos.get(num - 1).getcodigoObjeto()) // le ponemos -1 por el tamaño del vector que empieza en cero y mostramos los identificadores a partir del 1
                 listaObjetos.get(i).setCoste(coste);
         }
-                    
     }
     
     public String toString()

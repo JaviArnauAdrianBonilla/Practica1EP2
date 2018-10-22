@@ -74,11 +74,20 @@ public class Objeto {
         float saldo = 0;
         
         for(int i = 0; i < alquilerObjetos.size(); i++){
-            saldo += alquilerObjetos.get(i).getStartup();
+                saldo += alquilerObjetos.get(i).getStartup();
         }
-        System.out.println("\nEl saldo total del objeto alquilado es: "+saldo+" euros.\n");
+        if(!alquilerObjetos.isEmpty())
+            System.out.println("\nEl saldo total del objeto alquilado es: "+saldo+" euros.\n");
     }
     
+    public int saldosAlquiler(){
+        int saldo = 0;
+        for(int i = 0; i < alquilerObjetos.size(); i++){
+            return saldo+= alquilerObjetos.get(i).getStartup();
+        }
+        
+        return -1;
+    }
     
     public void addAlquilerObjetos(AlquilerObjetos alquiler)
     {   

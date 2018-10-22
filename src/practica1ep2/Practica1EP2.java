@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.InputMismatchException;
@@ -81,6 +82,7 @@ public class Practica1EP2 {
                     break;
                 case 10:
                     //Cuarta mejora
+                    ep2.listarMasAsiduos();//Falta finalizar la implementacion de esta funcion
                     break;
                 default:
                     System.out.println("Por favor introduce un numero entre el 1 y el 11. Gracias!!!");
@@ -94,15 +96,23 @@ public class Practica1EP2 {
         Usuario usuario;
         //Iterator<Usuario> iterator = listaUsuario.iterator();
 
-        String nombre, correo;
+        String nombre, correo, dirPostal, poblacion, provincia;
         System.out.print("Escribe el nombre: ");
         nombre = escribirDatos();
         do{
             System.out.print("Escribe el correo electronico: ");
             correo = escribirDatos();
         }while(ValidarCorreo(correo) == false);
+        System.out.print("Escribe la direccion postal:");
+        dirPostal = escribirDatos();
+        
+        System.out.print("Escribe la poblacion donde vive: ");
+        poblacion = escribirDatos();
 
-        usuario = new Usuario(idUsuario, nombre, correo); 
+        System.out.print("Escribe la provincia donde vive: ");
+        provincia = escribirDatos();
+
+        usuario = new Usuario(idUsuario, nombre, correo, dirPostal, poblacion, provincia); 
         listaUsuario.add(usuario);
         System.out.println(listaUsuario);
 
@@ -431,6 +441,22 @@ public class Practica1EP2 {
                 if(i == listaUsuario.get(idUsuario -1).getCodigo())
                     listaUsuario.remove(i);
             }
+        }
+    }
+    
+    
+    
+    public void listarMasAsiduos(){
+        ArrayList<Usuario> aux = new ArrayList<>();
+        aux.addAll(listaUsuario);
+        
+        
+        
+        for(int i = 0; i < listaUsuario.size(); i++){
+            listaUsuario.get(i).mostrarSaldoAlquiler();
+            
+        
+        //Collections.sort(listaUsuario.get(i).saldoAqluiler());
         }
     }
 
