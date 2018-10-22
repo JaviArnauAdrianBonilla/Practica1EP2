@@ -299,6 +299,66 @@ public class Practica1EP2 {
         }
     }
     
+    public void modificarImporte(){
+        String numUsuario, numObjeto, nuevoDato;
+        int idUsuario, idObjeto, posicion;
+        float nuevoCoste;
+        
+        if(listaUsuario.isEmpty()){
+            System.out.println("Lo sentimos la lista de usuarios está vacia. Introduzca antes los usuarios.");
+        }        
+        else{
+            System.out.println(listaUsuario);
+            do{
+                do{
+                    System.out.println("Inserta el identificador de usuario que desee: ");
+                    numUsuario = escribirDatos();
+                }while(ComprobarInt(numUsuario) == false);
+
+                idUsuario = Integer.parseInt(numUsuario);
+
+            }while(idUsuario > listaUsuario.size());
+            
+            for(int i = 0; i < listaUsuario.size(); i++){
+                if(i == listaUsuario.get(idUsuario - 1).getCodigo())
+                    listaUsuario.get(i).toString();      
+            }
+            
+            for(int posActualUs = 0; posActualUs < listaUsuario.size(); posActualUs++) 
+                if(posActualUs == idUsuario -1){
+                    do{
+                        do{
+                            System.out.println("Inserta el identificador del objeto que desee: ");
+                            numObjeto = escribirDatos();
+                        }while(ComprobarInt(numObjeto) == false);
+
+                        idObjeto = Integer.parseInt(numObjeto);
+                    }while(idObjeto > listaUsuario.get(posActualUs).obtenerTamListaObjeto());
+                    
+                    
+                    for(int i = 0; i < listaUsuario.get(posActualUs).obtenerTamListaObjeto(); i++){
+                        if(i == listaUsuario.get(posActualUs).ObtenerCodigoObjeto(idObjeto)){
+                            posicion = listaUsuario.get(i).buscarposObjetos(idObjeto);
+                            if(posicion != 1){
+                                do{
+                                System.out.println("Introduce el nuevo coste del objeto: ");
+                                nuevoDato = escribirDatos();
+                                }while(ComprobarFloat(nuevoDato) == false);
+                                nuevoCoste = Float.parseFloat(nuevoDato);
+                                if(nuevoCoste >=0){
+                                    listaUsuario.get(i).nuevoCoste(nuevoCoste, idObjeto);
+                                    System.out.println("NUEVO COSTE ACTUALIZADO");
+                                }
+                                else
+                                    System.out.println("El coste no se ha podido actualizar");
+                            }
+                            else
+                                System.out.println("OBJETO NO ENCONTRADO");
+                        }
+                    }
+                }
+        }
+    }
     
 
     public static String escribirDatos(){

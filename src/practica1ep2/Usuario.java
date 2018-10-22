@@ -53,6 +53,23 @@ public class Usuario {
             listaObjetos.get(i).mostrarSaldosAlquilado();
         }
     }
+    public int buscarposObjetos(int idObjeto){
+        int ini = 0, fin = listaObjetos.size()-1, pos;
+        
+        while(ini <= fin){
+            pos = (ini+fin)/2;
+            if(listaObjetos.get(pos).getcodigoObjeto() == idObjeto){
+                System.out.println("Objeto encontrado!!!!");
+                return pos;
+            }
+            else if(listaObjetos.get(pos).getcodigoObjeto() > idObjeto)
+                fin = pos -1;
+            else
+                ini = pos+1;
+        }
+        System.out.println("Objeto NO encontrado");
+        return -1;
+    }
     
     public int obtenerTamListaObjeto(){
       
@@ -67,6 +84,13 @@ public class Usuario {
         return res;
     }
     
+    public void nuevoCoste(float coste, int num){
+        for(int i = 0; i < listaObjetos.size(); i++){
+            if(i == listaObjetos.get(num - 1).getcodigoObjeto()) // le ponemos -1 por el tamaño del vector que empieza en cero y mostramos los identificadores a partir del 1
+                listaObjetos.get(i).setCoste(coste);
+        }
+                    
+    }
     
     public String toString()
     { 
