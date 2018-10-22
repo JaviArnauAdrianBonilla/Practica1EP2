@@ -77,6 +77,7 @@ public class Practica1EP2 {
                     break;
                 case 9:
                     //Tercera mejora
+                    ep2.eliminarUsuario();
                     break;
                 case 10:
                     //Cuarta mejora
@@ -400,6 +401,35 @@ public class Practica1EP2 {
                     fichero.close();
             }catch(Exception e2){
                 e2.printStackTrace();
+            }
+        }
+    }
+    
+    
+    
+    public void eliminarUsuario(){
+        String numUsuario;
+        int idUsuario;
+        for(int i = 0; i < listaUsuario.size(); i++)
+            listaUsuario.get(i);
+        if(listaUsuario.isEmpty()){
+            System.out.println("Lo sentimos la lista de usuarios está vacia. Introduzca antes los usuarios.");
+        }        
+        else{
+            System.out.println(listaUsuario);
+            do{
+                do{
+                    System.out.println("Inserta el identificador de usuario que desee: ");
+                    numUsuario = escribirDatos();
+                }while(ComprobarInt(numUsuario) == false);
+
+                idUsuario = Integer.parseInt(numUsuario);
+
+            }while(idUsuario > listaUsuario.size());
+            
+            for(int i = 0; i < listaUsuario.size(); i++){
+                if(i == listaUsuario.get(idUsuario -1).getCodigo())
+                    listaUsuario.remove(i);
             }
         }
     }
