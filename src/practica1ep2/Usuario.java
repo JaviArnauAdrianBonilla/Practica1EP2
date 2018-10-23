@@ -5,7 +5,10 @@
  */
 package practica1ep2;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 /**
  *
@@ -66,6 +69,29 @@ public class Usuario {
         
         return -1;
     }
+    public boolean listaObjetosVacia(){
+        boolean ok = false;
+        if(listaObjetos.isEmpty())
+            ok = true;
+        return ok;
+    }
+    /*
+    public Date devolverFechaInicio(int idObjeto) throws ParseException{
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/mm/yyyy");
+        Date d = formatoFecha.parse("01/01/1900");
+        for(int i = 0; i < listaObjetos.size(); i++)
+            return listaObjetos.get(i).getFechaInicio();
+        return d;
+    }
+    
+    public Date devolverFechaFin(int idObjeto) throws ParseException{
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/mm/yyyy");
+        Date d = formatoFecha.parse("01/01/1900");
+        for(int i = 0; i < listaObjetos.size(); i++)
+            if(i+1 == listaObjetos.get(idObjeto).getcodigoObjeto())
+            return listaObjetos.get(idObjeto).getFechaFin();
+        return d;
+    }    */
     
     public int buscarposObjetos(int idObjeto){
         int ini = 0, fin = listaObjetos.size()-1, pos;
@@ -100,7 +126,7 @@ public class Usuario {
     
     public void nuevoCoste(float coste, int num){
         for(int i = 0; i < listaObjetos.size(); i++){
-            if(i == listaObjetos.get(num - 1).getcodigoObjeto()) // le ponemos -1 por el tamaño del vector que empieza en cero y mostramos los identificadores a partir del 1
+            if(i+1 == listaObjetos.get(num - 1).getcodigoObjeto()) // le ponemos -1 por el tamaño del vector que empieza en cero y mostramos los identificadores a partir del 1
                 listaObjetos.get(i).setCoste(coste);
         }
     }

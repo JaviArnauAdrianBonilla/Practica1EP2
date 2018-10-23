@@ -49,8 +49,8 @@ public class AlquilerObjetos {
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fini = fecha.format(fechaInicio);
         String ffin = fecha.format(fechaFin);
-        return "\n\tNombre del cliente: "+ nombre + "\n\tFechas del prestamo" + fini + " - " + ffin + "\n\tImporte para el propietario: "+
-                            coste + " euros\n\tImporte para la startup: "+ startup + " euros\n";
+        return "\n\tNombre del cliente: "+ nombre + "\n\tFechas del prestamo: " + fini + " - " + ffin + "\n\tImporte para el propietario: "+
+                coste + " euros\n\tImporte para la startup: "+ startup + " euros\n";
     }
 }
 

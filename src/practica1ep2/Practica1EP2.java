@@ -208,6 +208,7 @@ public class Practica1EP2 {
         }        
         else{
             System.out.println(listaUsuario);
+            
             do{
                 do{
                     System.out.println("Inserta el identificador de usuario que desee: ");
@@ -225,42 +226,47 @@ public class Practica1EP2 {
             
             for(int posActualUs = 0; posActualUs < listaUsuario.size(); posActualUs++) 
                 if(posActualUs == idUsuario -1){
-                    do{
+                    if(listaUsuario.get(posActualUs).listaObjetosVacia() == false){
                         do{
-                            System.out.println("Inserta el identificador del objeto que desee: ");
-                            numObjeto = escribirDatos();
-                        }while(ComprobarInt(numObjeto) == false);
-
-                        idObjeto = Integer.parseInt(numObjeto);
-                    }while(idObjeto > listaUsuario.get(posActualUs).obtenerTamListaObjeto());
-                    
-                    
-                    for(int i = 0; i < listaUsuario.get(posActualUs).obtenerTamListaObjeto(); i++){
-                        if(i == listaUsuario.get(posActualUs).ObtenerCodigoObjeto(idObjeto)){
-                            System.out.println("\nIntroduce el nombre del cliente para realizar el alquiler: ");
-                            nombre = escribirDatos();
-                            System.out.println("\nIntroduce la fecha de inicio del alquiler del objeto con el formato (dd/mm/aaaa): ");
-                            fechaInicio = escribirDatos();
-                            System.out.println("\nIntroduce la fecha de fin del alquiler del objeto con el formato (dd/mm/aaaa):  ");
-                            fechaFin = escribirDatos();
-                            
-                            
                             do{
-                                System.out.print("Escribe el importe para el propietario: ");
-                                coste = escribirDatos();
-                            }while(ComprobarFloat(coste) == false);
+                                System.out.println("Inserta el identificador del objeto que desee: ");
+                                numObjeto = escribirDatos();
+                            }while(ComprobarInt(numObjeto) == false);
 
-                                costeObjeto = Float.parseFloat(coste);
+                            idObjeto = Integer.parseInt(numObjeto);
+                        }while(idObjeto > listaUsuario.get(posActualUs).obtenerTamListaObjeto());
 
-                            try{
-                                fechaini = ComprobacionFecha(fechaInicio);
-                                fechafin = ComprobacionFecha(fechaFin);
-                                alquilerObjetos = new AlquilerObjetos(nombre, fechaini, fechafin, costeObjeto);
-                                        listaUsuario.get(posActualUs).addAlquilerObjeto(alquilerObjetos, idObjeto);
-                            }catch(ParseException e){
-                                System.out.println("El tipo de excepcion es: " + e);
+                        for(int i = 0; i < listaUsuario.get(posActualUs).obtenerTamListaObjeto(); i++){
+                            if(i == listaUsuario.get(posActualUs).ObtenerCodigoObjeto(idObjeto)){
+                                System.out.println("\nIntroduce el nombre del cliente para realizar el alquiler: ");
+                                nombre = escribirDatos();
+                                //do{
+
+
+                                System.out.println("\nIntroduce la fecha de inicio del alquiler del objeto con el formato (dd/mm/aaaa): ");
+                                fechaInicio = escribirDatos();
+                                System.out.println("\nIntroduce la fecha de fin del alquiler del objeto con el formato (dd/mm/aaaa):  ");
+                                fechaFin = escribirDatos();
+                                //}while(listaUsuario.get(i).devolverFechaInicio(idObjeto).before( listaUsuario.get(i).devolverFechaFin(idObjeto));
+
+                                do{
+                                    System.out.print("Escribe el importe para el propietario: ");
+                                    coste = escribirDatos();
+                                }while(ComprobarFloat(coste) == false);
+
+                                    costeObjeto = Float.parseFloat(coste);
+
+                                try{
+                                    fechaini = ComprobacionFecha(fechaInicio);
+                                    fechafin = ComprobacionFecha(fechaFin);
+                                    alquilerObjetos = new AlquilerObjetos(nombre, fechaini, fechafin, costeObjeto);
+                                            listaUsuario.get(posActualUs).addAlquilerObjeto(alquilerObjetos, idObjeto);
+                                }catch(ParseException e){
+                                    System.out.println("El tipo de excepcion es: " + e);
+                                }
                             }
-                            
+                            else
+                                System.out.println("La lista de Objetos esta vacia");
                         }     
                     }
                 }
@@ -369,7 +375,7 @@ public class Practica1EP2 {
                     for(int i = 0; i < listaUsuario.get(posActualUs).obtenerTamListaObjeto(); i++){
                         if(i == listaUsuario.get(posActualUs).ObtenerCodigoObjeto(idObjeto)){
                             posicion = listaUsuario.get(i).buscarposObjetos(idObjeto);
-                            if(posicion != 1){
+                            if(posicion != -1){
                                 do{
                                 System.out.println("Introduce el nuevo coste del objeto: ");
                                 nuevoDato = escribirDatos();
@@ -394,29 +400,35 @@ public class Practica1EP2 {
         FileWriter fichero = null;
         PrintWriter mostrar = null;
         
-        try{
-            //genera el fichero txt
-            fichero = new FileWriter("src/saldos.txt");
-            //Te muestra o pinta en el fichero txt
-            mostrar = new PrintWriter(fichero);
-            
-            //va leyendo la lista de Usuarios y te las va pintando con mostrar en el txt
-            for(int i = 0; i < listaUsuario.size(); i++)
-                mostrar.print(listaUsuario.get(i));
-            System.out.println("\nFichero Creado con EXITO!!!\n");
-        //Si falla salta la excepcion ya que el archivo no se ha podido escribir    
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
+        if(listaUsuario.isEmpty()){
+            System.out.println("La lista de usuarios esta vacia. No se puede crear ningun fichero");
+        }
+        else{
             try{
-                //Nos aseguramos con el finally para cuando acabe el proceso anterior
-                //de que cierre correctamente el fichero
-                if(null!=fichero)
-                    fichero.close();
-            }catch(Exception e2){
-                e2.printStackTrace();
+                //genera el fichero txt
+                fichero = new FileWriter("src/saldos.txt");
+                //Te muestra o pinta en el fichero txt
+                mostrar = new PrintWriter(fichero);
+
+                //va leyendo la lista de Usuarios y te las va pintando con mostrar en el txt
+                for(int i = 0; i < listaUsuario.size(); i++)
+                    mostrar.print(listaUsuario.get(i));
+                System.out.println("\nFichero Creado con EXITO!!!\n");
+            //Si falla salta la excepcion ya que el archivo no se ha podido escribir    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{
+                    //Nos aseguramos con el finally para cuando acabe el proceso anterior
+                    //de que cierre correctamente el fichero
+                    if(null!=fichero)
+                        fichero.close();
+                }catch(Exception e2){
+                    e2.printStackTrace();
+                }
             }
         }
+        
     }
     
     
@@ -442,8 +454,9 @@ public class Practica1EP2 {
             }while(idUsuario > listaUsuario.size());
             
             for(int i = 0; i < listaUsuario.size(); i++){
-                if(i == listaUsuario.get(idUsuario -1).getCodigo())
+                if(i+1 == listaUsuario.get(idUsuario -1).getCodigo()){
                     listaUsuario.remove(i);
+                }
             }
         }
     }
@@ -560,7 +573,7 @@ public class Practica1EP2 {
         Esta funcion comprueba que la fecha introducida en otras funciones tengan el formato correcto que queremos dd/mm/yyyy . De no ser asi devolverá una excepcion
     
     */
-     private static Date ComprobacionFecha(String tiposfechas ) throws ParseException{
+     private static Date ComprobacionFecha(String tiposfechas) throws ParseException{
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/mm/yyyy");
             Date comprobarfecha = formatoFecha.parse(tiposfechas);
         return comprobarfecha;
